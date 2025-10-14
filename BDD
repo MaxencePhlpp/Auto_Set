@@ -1,0 +1,78 @@
+Voici la V.1 de la BDD :
+
+A copier/coller. 
+
+
+-- Création de la base de données
+DROP DATABASE IF EXISTS auto_set;
+CREATE DATABASE IF NOT EXISTS auto_set;
+USE auto_set;
+-- Table des clients
+CREATE TABLE client (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE,
+    telephone VARCHAR(20),
+    adresse VARCHAR(255)
+);
+CREATE TABLE professionnel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE,
+    telephone VARCHAR(20),
+    adresse VARCHAR(255),
+    siret VARCHAR(14) UNIQUE,
+    emploie ENUM('Secretariat', 'Mécanicien', 'Directeur', 'Stagiaire') NOT NULL);
+CREATE TABLE garage (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    adresse VARCHAR(255),
+    telephone VARCHAR(20),
+    email VARCHAR(150) UNIQUE,
+    professionnel_id INT,
+    FOREIGN KEY (professionnel_id) REFERENCES professionnel(id)
+);
+-- Table des véhicules
+CREATE TABLE vehicules (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    categorie VARCHAR(50),
+    marque VARCHAR(50),
+    modele VARCHAR(50),
+    immatriculation VARCHAR(20) UNIQUE,
+    kilometrage INT,
+    annee_sortie INT,
+    FOREIGN KEY (client_id) REFERENCES client(id)
+ 
+);
+-- Table des contrôles techniques
+CREATE TABLE controles_techniques (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicule_id INT NOT NULL,
+    date_controle DATE NOT NULL,
+    resultat ENUM('OK', 'Contre-visite') NOT NULL,
+    observations TEXT,
+    FOREIGN KEY (vehicule_id) REFERENCES vehicules(id)
+);
+-- Table des rendez-vous
+CREATE TABLE rendez_vous (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    vehicule_id INT NOT NULL,
+    date_rdv DATETIME NOT NULL,
+    type_rdv ENUM('Controle technique', 'Contre-visite') NOT NULL,
+    statut ENUM('Prévu', 'Effectué', 'Annulé') DEFAULT 'Prévu',
+    FOREIGN KEY (client_id) REFERENCES client(id),
+    FOREIGN KEY (vehicule_id) REFERENCES vehicules(id)
+);
+-- Table des contre-visites
+CREATE TABLE contre_visites (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    controle_id INT NOT NULL,
+    date_contre_visite DATE NOT NULL,
+    resultat ENUM('OK', 'Echec') NOT NULL,
+    observations TEXT,
+    FOREIGN KEY (controle_id) REFERENCES controles_techniques(id)
+);
