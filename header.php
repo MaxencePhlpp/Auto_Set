@@ -26,8 +26,9 @@
         </div>
         <nav>
             <ul>
-                <li><a href="rendez-vous.php">Liste des RDV</a></li>
-                <li><a href="agenda.html">Prendre un RDV</a></li>
+                 <li><a href="#"><span class="icon">📋</span> Liste des RDV</a></li>
+    <li><a href="#"><span class="icon">📅</span> Agenda</a></li>
+    <li><a href="#"><span class="icon">🏁</span> Résultats</a></li>
                 <li><a href="logout.php" class="logout-button">Se déconnecter</a></li>
             </ul>
         </nav>

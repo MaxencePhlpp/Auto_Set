@@ -174,21 +174,94 @@ footer { text-align: center; padding: 20px; margin-top: 30px; background: #333; 
 
 
 
-#logo {
-    height: 200px; 
-    width: auto;  
-      display: block;       
-    margin: 0 auto; 
+header {
+  background-color: #000; 
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  position: relative;
+  margin-bottom: 20px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+header img {
+  width: 175px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto; 
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+  letter-spacing: 2px;
+  color: white;
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px;
+  padding: 20px;
 }
 
 
-.header-content h1 {
-    margin: 0;
-    line-height: 1;
+nav {
+  margin-top: 15px;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  position: relative;
+}
+
+.menu li a {
+  color: #ff7f00;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.menu li a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff7f00;
+  transition: width .3s ease;
+}
+
+.menu li a:hover::after {
+  width: 100%;
 }
 
 
-.header-content h1 a {
-    text-decoration: none;
-    border: none;
+.menu li a:hover {
+  color: white;
+  text-shadow: 0 0 8px #ff7f00;
+}
+
+
+.icon {
+  font-size: 1.2em;
 }
