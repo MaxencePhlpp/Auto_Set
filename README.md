@@ -45,13 +45,18 @@ git clone https://github.com/ton-compte/Auto_Set.git
 cd Auto_Set
 ```
 
+3. **Accéder à la bdd du projet**
+```bash
+mysql -h 172.16.101.235 -u auto_set -p
+```
+
 3. **Lancer le projet**
 
 Ouvrir le fichier index.html dans un navigateur.
 
 ## 📌 Roadmap  
-- [ ] Mise en place de l’authentification (login / inscription)
-- [ ] Déploiment officiel de la base de données
+- [✔️] Mise en place de l’authentification (login / inscription)
+- [✔️] Déploiment officiel de la base de données
 - [ ] Ajout des classes métiers et DAO
 - [ ] Ajout de la gestion des rendez-vous et agendas 
 
