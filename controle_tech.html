@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fiche de contrôle technique - Garagiste</title>
+  <link rel="stylesheet" href="style_controle.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <div class="container" id="pdfArea">
+    <header>
+      <div class="brand">Contrôle-tech</div>
+      <div>
+        <h1>Fiche de contrôle technique</h1>
+        <p class="lead">Formulaire à remplir par le garagiste durant le contrôle</p>
+      </div>
+    </header>
+
+    <form class="card" id="inspectionForm">
+      <section class="section">
+        <h2>Informations générales</h2>
+        <div class="grid cols-3">
+          <div>
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div>
+            <label for="heure">Heure</label>
+            <input type="text" id="heure" name="heure" placeholder="HH:MM" required>
+          </div>
+          <div>
+            <label for="atelier">Atelier / Station</label>
+            <input type="text" id="atelier" value="Auto-Set" name="atelier" placeholder="Nom de l'atelier" >
+          </div>
+        </div>
+
+        <div class="grid cols-3" style="margin-top:10px">
+          <div>
+            <label for="nomClient">Nom du client</label>
+            <input type="text" id="nomClient" name="nomClient" required>
+          </div>
+          <div>
+            <label for="tel">Téléphone</label>
+            <input type="text" id="tel" name="tel">
+          </div>
+          <div>
+            <label for="immatriculation">Immatriculation</label>
+            <input type="text" id="immatriculation" name="immatriculation" required>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Contrôles principaux</h2>
+        <div class="checks">
+          <div class="check"><div class="title">Freinage</div><div class="inline"><label><input type="radio" name="frein" value="ok" checked> OK</label><label><input type="radio" name="frein" value="non"> NON</label></div><input type="text" name="frein_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Éclairage & Signalisation</div><div class="inline"><label><input type="radio" name="feux" value="ok" checked> OK</label><label><input type="radio" name="feux" value="non"> NON</label></div><input type="text" name="feux_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Pneumatiques</div><div class="inline"><label><input type="radio" name="pneus" value="ok" checked> OK</label><label><input type="radio" name="pneus" value="non"> NON</label></div><input type="text" name="pneus_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Direction</div><div class="inline"><label><input type="radio" name="direction" value="ok" checked> OK</label><label><input type="radio" name="direction" value="non"> NON</label></div><input type="text" name="direction_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Structure et châssis</div><div class="inline"><label><input type="radio" name="structure" value="ok" checked> OK</label><label><input type="radio" name="structure" value="non"> NON</label></div><input type="text" name="structure_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Pollution et émissions</div><div class="inline"><label><input type="radio" name="pollution" value="ok" checked> OK</label><label><input type="radio" name="pollution" value="non"> NON</label></div><input type="text" name="pollution_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Ceintures, sièges et sécurité</div><div class="inline"><label><input type="radio" name="ceintures" value="ok" checked> OK</label><label><input type="radio" name="ceintures" value="non"> NON</label></div><input type="text" name="ceintures_com" placeholder="Remarque"></div>
+          <div class="check"><div class="title">Visibilité et vitrage</div><div class="inline"><label><input type="radio" name="visibilité" value="ok" checked> OK</label><label><input type="radio" name="visibilité" value="non"> NON</label></div><input type="text" name="visibilité_com" placeholder="Remarque"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Résultat & Signature</h2>
+        <div class="row">
+          <div>
+            <label>Résultat global</label>
+            <div class="inline">
+              <label><input type="radio" name="resultat" value="conforme" checked> Conforme</label>
+              <label><input type="radio" name="resultat" value="defaut"> Défaut</label>
+              <input type="text" name="visibilité_com" placeholder="Remarque">
+            </div>
+          </div>
+          <div>
+            <label>Contrôlé par</label>
+            <input type="text" id="controleur" name="controleur" placeholder="Nom du garagiste" required>
+          </div>
+        </div>
+      </section>
+    </form>
+
+    <div class="actions no-print">
+      <button type="button" class="ghost" onclick="resetForm()">Réinitialiser</button>
+      <button type="button" class="secondary" onclick="saveDraft()">Enregistrer brouillon</button>
+      <button type="button" onclick="downloadPDF()">Télécharger PDF</button>
+    </div>
+
+    <footer>
+      <div class="small">Fiche générée pour usage interne. Conserver la fiche signée 3 ans selon réglementation applicable.</div>
+      <div class="small">Version 1.1</div>
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('inspectionForm');
+
+    function saveDraft(){
+      const data = new FormData(form);
+      const obj = {};
+      for(const [k,v] of data.entries()){
+        obj[k]=v;
+      }
+      localStorage.setItem('controleTechDraft', JSON.stringify(obj));
+      alert('Brouillon enregistré localement');
+    }
+
+    function loadDraft(){
+      const raw = localStorage.getItem('controleTechDraft');
+      if(!raw) return;
+      try{
+        const obj = JSON.parse(raw);
+        for(const k in obj){
+          const el = form.elements[k];
+          if(!el) continue;
+          if(el.type === 'radio'){
+            const radios = form.querySelectorAll(`[name="${k}"]`);
+            radios.forEach(r=>{ if(r.value===obj[k]) r.checked=true});
+          } else {
+            el.value = obj[k];
+          }
+        }
+      }catch(e){console.warn('impossible de charger le brouillon',e)}
+    }
+
+    function resetForm(){
+      if(confirm('Réinitialiser le formulaire ? Toutes les données non sauvegardées seront perdues.')){
+        form.reset();
+      }
+    }
+
+    function downloadPDF(){
+      const element = document.getElementById('pdfArea');
+      const opt = {
+        margin:       0.3,
+        filename:     `Controle_Technique_${new Date().toISOString().slice(0,10)}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDraft);
+  </script>
+</body>
+</html>
