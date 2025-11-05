@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda - Contrôle Technique</title>
+  <link rel="stylesheet" href="style_Agenda_VF.css" />
+</head>
+<body>
+  <header>
+  <img src="logo_autoset.png" alt="Logo Auto Set">
+  <nav>
+  <ul class="menu">
+    <li><a href="#"><span class="icon">📋</span> Liste des RDV</a></li>
+    <li><a href="#"><span class="icon">📅</span> Agenda</a></li>
+    <li><a href="#"><span class="icon">🔐</span> Connexion</a></li>
+  </ul>
+</nav>
+  </header>
+
+  <main>
+    <section id="formulaire">
+      <h2>Ajouter un rendez-vous</h2>
+      <form id="rdvForm">
+        <label>Nom du client :</label>
+        <input type="text" id="client" required>
+
+        <label>Immatriculation :</label>
+        <input type="text" id="immat" required>
+
+        <label>Professionnel :</label>
+        <select id="pro" required>
+          <option value="">-- Sélectionner --</option>
+          <option value="Marc Lefebvre">Marc Lefebvre</option>
+          <option value="Sarah Martin">Sarah Martin</option>
+          <option value="Ahmed Benali">Ahmed Benali</option>
+        </select>
+
+        <label>Date :</label>
+        <input type="date" id="date" required>
+
+        <label>Heure de début :</label>
+        <input type="time" id="start" required>
+
+        <label>Heure de fin :</label>
+        <input type="time" id="end" required>
+
+        <button type="submit">Ajouter</button>
+      </form>
+    </section>
+
+    <section id="agenda">
+      <div id="week-nav">
+        <button id="prevWeek">← Semaine précédente</button>
+        <h2 id="weekLabel"></h2>
+        <button id="nextWeek">Semaine suivante →</button>
+      </div>
+
+      <div id="calendar"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Contrôle Technique</p>
+  </footer>
+
+  <!-- Fenêtre modale -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3>Détails du rendez-vous</h3>
+      <form id="editForm">
+        <label>Nom du client :</label>
+        <input type="text" id="editClient">
+
+        <label>Immatriculation :</label>
+        <input type="text" id="editImmat">
+
+        <label>Professionnel :</label>
+        <select id="editPro">
+          <option value="Marc Lefebvre">Marc Lefebvre</option>
+          <option value="Sarah Martin">Sarah Martin</option>
+          <option value="Ahmed Benali">Ahmed Benali</option>
+        </select>
+
+        <label>Date :</label>
+        <input type="date" id="editDate">
+
+        <label>Heure de début :</label>
+        <input type="time" id="editStart">
+
+        <label>Heure de fin :</label>
+        <input type="time" id="editEnd">
+
+        <div class="modal-buttons">
+          <button type="submit">Enregistrer</button>
+          <button type="button" id="deleteRdv">Supprimer</button>
+          <button type="button" id="closeModal">Fermer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script_Agenda_VF.js"></script>
+</body>
+</html>
