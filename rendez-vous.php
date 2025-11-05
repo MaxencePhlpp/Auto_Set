@@ -4,6 +4,7 @@ include 'header.php';
 
 $base_query = "
     SELECT 
+        r.id,
         r.date_rdv,
         r.statut,
         c.nom AS client_nom,
@@ -39,7 +40,14 @@ $rdv_past = $stmt_past->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <table>
                     <thead>
-                        <tr><th>Heure</th><th>Client</th><th>Véhicule</th><th>Immat.</th><th>Statut</th></tr>
+                        <tr>
+                            <th>Heure</th>
+                            <th>Client</th>
+                            <th>Véhicule</th>
+                            <th>Immat.</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($rdv_today as $rdv): ?>
@@ -49,6 +57,9 @@ $rdv_past = $stmt_past->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo htmlspecialchars($rdv['marque'] . ' ' . $rdv['modele']); ?></td>
                                 <td><?php echo htmlspecialchars($rdv['immatriculation']); ?></td>
                                 <td><span class="statut-<?php echo strtolower($rdv['statut']); ?>"><?php echo htmlspecialchars($rdv['statut']); ?></span></td>
+                                <td>
+                                    <a href="controle.php?id=<?php echo $rdv['id']; ?>" class="btn">Contrôle technique</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -65,7 +76,13 @@ $rdv_past = $stmt_past->fetchAll(PDO::FETCH_ASSOC);
             <?php else: ?>
                 <table>
                     <thead>
-                        <tr><th>Date</th><th>Client</th><th>Véhicule</th><th>Immat.</th></tr>
+                        <tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Véhicule</th>
+                            <th>Immat.</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($rdv_future as $rdv): ?>
@@ -74,6 +91,9 @@ $rdv_past = $stmt_past->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo htmlspecialchars($rdv['client_prenom'] . ' ' . $rdv['client_nom']); ?></td>
                                 <td><?php echo htmlspecialchars($rdv['marque'] . ' ' . $rdv['modele']); ?></td>
                                 <td><?php echo htmlspecialchars($rdv['immatriculation']); ?></td>
+                                <td>
+                                    <a href="controle.php?id=<?php echo $rdv['id']; ?>" class="btn">Contrôle technique</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -89,6 +109,16 @@ $rdv_past = $stmt_past->fetchAll(PDO::FETCH_ASSOC);
                 <p>Aucun rendez-vous passé.</p>
             <?php else: ?>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Véhicule</th>
+                            <th>Immat.</th>
+                            <th>Statut</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <?php foreach ($rdv_past as $rdv): ?>
                             <tr>
@@ -97,15 +127,18 @@ $rdv_past = $stmt_past->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo htmlspecialchars($rdv['marque'] . ' ' . $rdv['modele']); ?></td>
                                 <td><?php echo htmlspecialchars($rdv['immatriculation']); ?></td>
                                 <td><span class="statut-<?php echo strtolower($rdv['statut']); ?>"><?php echo htmlspecialchars($rdv['statut']); ?></span></td>
+                                <td>
+                                    <a href="controle.php?id=<?php echo $rdv['id']; ?>" class="btn">Contrôle technique</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <div class="pagination-link">
                     <a href="historique_rdv.php" class="btn">Voir tout l'historique</a>
                 </div>
-                <?php endif; ?>
+            <?php endif; ?>
         </div>
     </section>
 
