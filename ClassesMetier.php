@@ -1,0 +1,201 @@
+<?php
+
+declare(strict_types=1);
+
+
+class Client
+{
+    public ?int $id_client;
+    public string $nom_client;
+    public string $prenom_client;
+    public ?string $email_client;
+    public ?string $telephone_client;
+    public ?string $adresse_client;
+    public ?string $date_inscription_client;
+
+    public function __construct(
+        ?int $id_client,
+        string $nom_client,
+        string $prenom_client,
+        ?string $email_client,
+        ?string $telephone_client,
+        ?string $adresse_client,
+        ?string $date_inscription_client
+    ) {
+        $this->id_client = $id_client;
+        $this->nom_client = $nom_client;
+        $this->prenom_client = $prenom_client;
+        $this->email_client = $email_client;
+        $this->telephone_client = $telephone_client;
+        $this->adresse_client = $adresse_client;
+        $this->date_inscription_client = $date_inscription_client;
+    }
+}
+
+class Professionnel
+{
+    public ?int $id_professionnel;
+    public string $nom_professionnel;
+    public string $prenom_professionnel;
+    public string $email_professionnel;
+    public string $mot_de_passe_professionnel;
+    public ?string $telephone_professionnel;
+    public ?string $adresse_professionnel;
+    public string $emploi_professionnel;
+
+    public function __construct(
+        ?int $id_professionnel,
+        string $nom_professionnel,
+        string $prenom_professionnel,
+        string $email_professionnel,
+        string $mot_de_passe_professionnel,
+        ?string $telephone_professionnel,
+        ?string $adresse_professionnel,
+        string $emploi_professionnel,
+    ) {
+        $this->id_professionnel = $id_professionnel;
+        $this->nom_professionnel = $nom_professionnel;
+        $this->prenom_professionnel = $prenom_professionnel;
+        $this->email_professionnel = $email_professionnel;
+        $this->mot_de_passe_professionnel = $mot_de_passe_professionnel;
+        $this->telephone_professionnel = $telephone_professionnel;
+        $this->adresse_professionnel = $adresse_professionnel;
+        $this->emploi_professionnel = $emploi_professionnel;
+    }
+}
+
+class Garage
+{
+    public ?int $id_garage;
+    public string $nom_garage;
+    public ?string $adresse_garage;
+    public ?string $telephone_garage;
+    public ?string $email_garage;
+
+    public function __construct(
+        ?int $id_garage,
+        string $nom_garage,
+        ?string $adresse_garage,
+        ?string $telephone_garage,
+        ?string $email_garage = null
+    ) {
+        $this->id_garage = $id_garage;
+        $this->nom_garage = $nom_garage;
+        $this->adresse_garage = $adresse_garage;
+        $this->telephone_garage = $telephone_garage;
+        $this->email_garage = $email_garage;
+    }
+}
+
+class GarageProfessionnel
+{
+    public int $id_garage;
+    public int $id_professionnel;
+    public ?string $role_professionnel;
+
+    public function __construct(int $id_garage, int $id_professionnel, ?string $role_professionnel = null)
+    {
+        $this->id_garage = $id_garage;
+        $this->id_professionnel = $id_professionnel;
+        $this->role_professionnel = $role_professionnel;
+    }
+}
+
+class Vehicule
+{
+    public ?int $id_vehicule;
+    public int $id_client;
+    public ?string $categorie_vehicule;
+    public ?string $marque_vehicule;
+    public ?string $modele_vehicule;
+    public ?string $immatriculation_vehicule;
+    public ?int $kilometrage_vehicule;
+    public ?int $annee_sortie_vehicule;
+    public ?string $date_dernier_controle;
+
+    public function __construct(
+        ?int $id_vehicule,
+        int $id_client = 0,
+        ?string $categorie_vehicule,
+        ?string $marque_vehicule,
+        ?string $modele_vehicule,
+        ?string $immatriculation_vehicule,
+        ?int $kilometrage_vehicule,
+        ?int $annee_sortie_vehicule,
+        ?string $date_dernier_controle,
+    ) {
+        $this->id_vehicule = $id_vehicule;
+        $this->id_client = $id_client;
+        $this->categorie_vehicule = $categorie_vehicule;
+        $this->marque_vehicule = $marque_vehicule;
+        $this->modele_vehicule = $modele_vehicule;
+        $this->immatriculation_vehicule = $immatriculation_vehicule;
+        $this->kilometrage_vehicule = $kilometrage_vehicule;
+        $this->annee_sortie_vehicule = $annee_sortie_vehicule;
+        $this->date_dernier_controle = $date_dernier_controle;
+    }
+}
+
+class ControleTechnique
+{
+    public ?int $id_controle;
+    public int $id_vehicule;
+    public ?int $id_professionnel;
+    public ?int $id_garage;
+    public string $date_controle;
+    public string $type_controle;
+    public string $resultat_controle;
+    public ?string $observations_controle;
+
+    public function __construct(
+        ?int $id_controle,
+        int $id_vehicule,
+        ?int $id_professionnel,
+        ?int $id_garage,
+        string $date_controle,
+        string $type_controle,
+        string $resultat_controle,
+        ?string $observations_controle,
+    ) {
+        $this->id_controle = $id_controle;
+        $this->id_vehicule = $id_vehicule;
+        $this->id_professionnel = $id_professionnel;
+        $this->id_garage = $id_garage;
+        $this->date_controle = $date_controle;
+        $this->type_controle = $type_controle;
+        $this->resultat_controle = $resultat_controle;
+        $this->observations_controle = $observations_controle;
+    }
+}
+
+class RendezVous
+{
+    public ?int $id_rdv;
+    public int $id_client;
+    public int $id_vehicule;
+    public ?int $id_professionnel;
+    public ?int $id_garage;
+    public string $date_rdv;
+    public string $type_rdv;
+    public string $statut_rdv;
+
+    public function __construct(
+        ?int $id_rdv,
+        int $id_client,
+        int $id_vehicule,
+        ?int $id_professionnel,
+        ?int $id_garage,
+        string $date_rdv,
+        string $type_rdv,
+        string $statut_rdv,
+    ) {
+        $this->id_rdv = $id_rdv;
+        $this->id_client = $id_client;
+        $this->id_vehicule = $id_vehicule;
+        $this->id_professionnel = $id_professionnel;
+        $this->id_garage = $id_garage;
+        $this->date_rdv = $date_rdv;
+        $this->type_rdv = $type_rdv;
+        $this->statut_rdv = $statut_rdv;
+    }
+}
